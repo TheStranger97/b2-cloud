@@ -1,6 +1,8 @@
 # TP1
 
-# 1. Install
+# Part I : Docker basics
+
+## 1. Install
 
 on désisntalle les packages possiblement déjà installés
 
@@ -26,9 +28,8 @@ docker est automatiquement lancé avk le script mais au cas où
 sudo systemctl start docker
 ```
 
-# 2. vérif install
 
-# 3. Lancement des conteneurs
+## 3. Lancement des conteneurs
 
 🌞 **Utiliser la commande `docker run`**
 
@@ -69,4 +70,26 @@ Commercial support is available at
 
 ```
 docker run --name meow -d -v $(pwd)/index.html:/usr/share/nginx/html/index.html -v $(pwd)/nginx.conf:/etc/nginx/conf.d/nginx.conf -p 9999:7777 -m="512m" nginx
+```
+
+
+## Part II : Images
+
+🌞 Dans les deux cas, j'attends juste votre Dockerfile dans le compte-rendu
+```
+FROM ubuntu
+
+RUN apt update -y
+
+RUN apt install -y apache2
+
+RUN mkdir /etc/apache2/logs
+
+COPY apache2.conf /etc/apache2/
+
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+COPY index.html /var/www/html/
+
+CMD [ "apache2", "-DFOREGROUND" ]
 ```
