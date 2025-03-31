@@ -93,3 +93,54 @@ COPY index.html /var/www/html/
 
 CMD [ "apache2", "-DFOREGROUND" ]
 ```
+
+
+## Part III : docker-compose
+
+
+docker-compose.yml
+```
+services:
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: wiki
+      POSTGRES_PASSWORD: wikijsrocks
+      POSTGRES_USER: wikijs
+    logging:
+      driver: none
+    restart: unless-stopped
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  wiki:
+    image: ghcr.io/requarks/wiki:2
+    depends_on:
+      - db
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: wikijs
+      DB_PASS: wikijsrocks
+      DB_NAME: wiki
+    restart: unless-stopped
+    ports:
+      - "80:3000"
+
+volumes:
+  db-data:
+```
+
+```
+docker compse up -d
+```
+
+```
+docker ps -a
+CONTAINER ID   IMAGE                     COMMAND                  CREATED          STATUS          PORTS                                                   NAMES
+0305e6790897   ghcr.io/requarks/wiki:2   "docker-entrypoint.s…"   19 minutes ago   Up 19 minutes   3443/tcp, 0.0.0.0:9999->3000/tcp, [::]:9999->3000/tcp   docker-compose-wiki-1
+714c5d4d2670   postgres:15-alpine        "docker-entrypoint.s…"   19 minutes ago   Up 19 minutes   5432/tcp                                                docker-compose-db-1
+```
+
