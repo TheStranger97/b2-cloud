@@ -1,1 +1,4 @@
 *.tf
+*.txt
+*.hcl
+*.exe
