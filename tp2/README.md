@@ -190,7 +190,7 @@ tp2magueule-resources  westeurope  Succeeded
 ```hcl
 provider "azurerm" {
   features {}
-  subscription_id = "ef8322d4-8f87-4612-98ca-fcfc18dbe74c"
+  subscription_id = "youpi"
 }
 resource "azurerm_resource_group" "main" {
   name     = "${var.prefix}-resources"
@@ -344,7 +344,7 @@ livrez votre `main.tf` dans le compte-rendu
 ```hcl
 provider "azurerm" {
   features {}
-  subscription_id = "ef8322d4-8f87-4612-98ca-fcfc18dbe74c"
+  subscription_id = "joli"
 }
 resource "azurerm_resource_group" "main" {
   name     = "${var.prefix}-resources"
